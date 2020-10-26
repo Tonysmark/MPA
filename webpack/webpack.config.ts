@@ -1,8 +1,7 @@
-import webpack, { Configuration } from 'webpack';
+import webpack, { Configuration, Entry } from 'webpack';
 import path from 'path';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-
 
 const ROOT_PATH = path.resolve(__dirname, '../');
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
@@ -10,11 +9,22 @@ const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const NODE_MODULES = path.resolve(ROOT_PATH, 'node_modules');
 
 const BUILD_MODULES = process.env.BUILD_MODULES || '';
-const modulesPaths = BUILD_MODULES.split(',').map(module => `${SRC_PATH}/${module.trim()}/App.tsx`);
+const entries: Entry = {};
+const htmlModules:HtmlWebpackPlugin[] = [];
+const insertModules = (moduleName: string) => {
+    entries[moduleName] = ['webpack-hot-middleware/client', `${SRC_PATH}/${moduleName.trim()}/App.tsx`];
+    htmlModules.push(new HtmlWebpackPlugin({
+        filename: './' + moduleName + '.html',
+        template: `${SRC_PATH}/public/index.html`,
+        hash: false,
+        chunks: [moduleName]
+    }))
+};
+BUILD_MODULES.split(',').forEach(insertModules)
 
 const config: Configuration = {
     mode: 'development',
-    entry: ['webpack-hot-middleware/client', ...modulesPaths], // 在使用的时候 设置 MODULE_NAME 然后这里解析同名文件夹，找到唯一入口就可以
+    entry: entries, // 在使用的时候 设置 MODULE_NAME 然后这里解析同名文件夹，找到唯一入口就可以
     devtool: 'inline-source-map',
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
@@ -79,7 +89,7 @@ const config: Configuration = {
     },
 
     plugins: [
-        new HtmlWebpackPlugin(),
+        ...htmlModules,
         new webpack.HotModuleReplacementPlugin(),
         new ForkTsCheckerWebpackPlugin({
             eslint: {
