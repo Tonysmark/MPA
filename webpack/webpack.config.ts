@@ -8,19 +8,21 @@ const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const NODE_MODULES = path.resolve(ROOT_PATH, 'node_modules');
 
-const BUILD_MODULES = process.env.BUILD_MODULES || '';
+const buildModules = process.env.BUILD_MODULES || '';
 const entries: Entry = {};
-const htmlModules:HtmlWebpackPlugin[] = [];
+const htmlModules: HtmlWebpackPlugin[] = [];
 const insertModules = (moduleName: string) => {
     entries[moduleName] = ['webpack-hot-middleware/client', `${SRC_PATH}/${moduleName.trim()}/App.tsx`];
-    htmlModules.push(new HtmlWebpackPlugin({
-        filename: './' + moduleName + '.html',
-        template: `${SRC_PATH}/public/index.html`,
-        hash: false,
-        chunks: [moduleName]
-    }))
+    htmlModules.push(
+        new HtmlWebpackPlugin({
+            filename: './' + moduleName + '.html',
+            template: `${SRC_PATH}/common/public/index.html`,
+            hash: false,
+            chunks: [moduleName],
+        }),
+    );
 };
-BUILD_MODULES.split(',').forEach(insertModules)
+buildModules.split(',').forEach(insertModules);
 
 const config: Configuration = {
     mode: 'development',
@@ -83,7 +85,7 @@ const config: Configuration = {
     },
 
     output: {
-        filename: '[name].[chunkhash].js',
+        filename: '[name].[hash].js',
         publicPath: '/',
         path: DIST_PATH,
     },

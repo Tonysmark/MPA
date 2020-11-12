@@ -11,12 +11,17 @@ app.use(webpackDevMiddleware(compiler, { publicPath: config.output ? (config.out
 app.use(webpackHotMiddleware(compiler));
 
 app.get('/:moduleName?/*', (req, res, next) => {
-    // FIXME 这里模块还是有问题
-    const moduleName = req.params['0'];
-    console.info('模块--> ' + moduleName);
-    const filePath = path.join(`${compiler.outputPath}/index.html`);
-    console.log("compiler.outputPath : ",compiler.outputPath)
-    console.log("filePath : ",filePath)
+    // NOTE: 代表着没有根路由，必须得存在至少两个参数的路由地址 Module/IndexPage 这样
+    let moduleName = req.params['moduleName'];
+    if (moduleName) {
+        moduleName = moduleName.trim();
+    } else {
+        moduleName = req.params['0'];
+    }
+    console.info('请求模块' + moduleName);
+    console.log('路由参数: ', req.params);
+    console.log('路由查询: ', req.query);
+    const filePath = path.join(`${compiler.outputPath}/${moduleName}.html`);
     compiler.outputFileSystem.readFile(filePath, (err, result) => {
         if (err) {
             return next();
