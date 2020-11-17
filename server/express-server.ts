@@ -18,7 +18,7 @@ app.get('/:moduleName?/*', (req, res, next) => {
     } else {
         moduleName = req.params['0'];
     }
-    console.info('请求模块' + moduleName);
+    console.info('请求模块: ' + moduleName);
     console.log('路由参数: ', req.params);
     console.log('路由查询: ', req.query);
     const filePath = path.join(`${compiler.outputPath}/${moduleName}.html`);

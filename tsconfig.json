@@ -27,6 +27,5 @@
     "server",
     "webpack",
     "src/**/*",
-    "stories"
   ]
 }

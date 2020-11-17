@@ -1,13 +1,10 @@
-import React, { ReactElement } from 'react'
+import React, { StrictMode } from 'react';
+import ReactDOM from 'react-dom';
+import Routes from './router';
 
-interface Props {
-    
-}
-
-export default function App(): ReactElement {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+ReactDOM.render(
+    <StrictMode>
+        <Routes />
+    </StrictMode>,
+    document.querySelector('#app'),
+);

@@ -2,7 +2,7 @@
   "name": "webpack-starter",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
+
   "dependencies": {
     "@loadable/component": "^5.14.1",
     "css-loader": "^5.0.0",
@@ -49,6 +49,6 @@
   },
   "scripts": {
     "webpack": "webpack --config ./webpack/webpack.config.ts",
-    "serve": "set NODE_ENV=development && set BUILD_MODULES=Auto,QuesAns,Reader && ts-node ./server/express-server.ts"
+    "serve": "nodemon set NODE_ENV=development && set BUILD_MODULES=ModuleA && ts-node ./server/express-server.ts"
   }
 }

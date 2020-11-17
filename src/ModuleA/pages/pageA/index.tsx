@@ -13,7 +13,7 @@ export default class index extends Component<Props, State> {
     render() {
         return (
             <div>
-                
+                <h1>Page A</h1>
             </div>
         )
     }
