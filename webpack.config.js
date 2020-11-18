@@ -45,7 +45,7 @@ module.exports = {
                 exclude: [NODE_MODULES],
             },
             {
-                test: /\.module\.scss$/,
+                test: /\.module\.(sass|scss)$/,
                 // https://webpack.docschina.org/loaders/css-loader/#compiletype
                 use: [
                     {

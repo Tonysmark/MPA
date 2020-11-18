@@ -3,6 +3,7 @@ import path from 'path';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
+
 const ROOT_PATH = path.resolve(__dirname, '../');
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
@@ -14,7 +15,7 @@ const htmlModules: HtmlWebpackPlugin[] = [];
 const insertModules = (moduleName: string) => {
     moduleName = moduleName.trim();
     entries[moduleName] = ['webpack-hot-middleware/client', `${SRC_PATH}/${moduleName}/App.tsx`];
-    console.log("entries : ",entries)
+    console.log('entries : ', entries);
     htmlModules.push(
         new HtmlWebpackPlugin({
             filename: './' + moduleName + '.html',
@@ -25,7 +26,7 @@ const insertModules = (moduleName: string) => {
     );
 };
 buildModules.split(',').forEach(insertModules);
-
+// TODO SPA 的 devServer
 const config: Configuration = {
     mode: 'development',
     entry: entries, // 在使用的时候 设置 MODULE_NAME 然后这里解析同名文件夹，找到唯一入口就可以
@@ -36,16 +37,16 @@ const config: Configuration = {
     module: {
         rules: [
             {
-                test: /\.ts?x$/,
+                test: /\.(tsx|ts)$/,
                 use: [
                     // { loader: 'thread-loader' }, // https://github.com/webpack-contrib/thread-loader/issues/84
-                    { loader: 'ts-loader', options: { transpileOnly: true } },
+                    { loader: 'ts-loader' },
                 ],
                 include: [SRC_PATH],
                 exclude: [NODE_MODULES],
             },
             {
-                test: /\.module\.scss$/,
+                test: /\.((c|sa|sc)ss)$/i,
                 // https://webpack.docschina.org/loaders/css-loader/#compiletype
                 use: [
                     {
@@ -53,35 +54,30 @@ const config: Configuration = {
                     },
                     {
                         loader: 'css-loader',
-                        // 0 => no loaders (default);// 1 => postcss-loader;// 2 => postcss-loader, sass-loader
-                        options: { importLoaders: 1, modules: { compileType: 'module' } },
-                    },
-                    {
-                        loader: 'postcss-loader', // TODO 添加 样式扩展
+                        options: {
+                            importLoaders: 1,
+                            // 对于满足 `/\.module\.\w+$/i` 正则匹配发热文件自动启用 css 模块。
+                            modules: { auto: true, localIdentName: '[name]--[local]--[hash:base64:8]' },
+                        },
                     },
                     {
                         loader: 'sass-loader',
-                        options: { implementation: require('sass') }, // 放弃 node-sass 转用 dart-sass
+                        options: {
+                            // 放弃 node-sass 转用 dart-sass
+                            implementation: require('sass'),
+                            sassOptions: {
+                                fiber: require('fibers'),
+                            },
+                        },
                     },
                 ],
             },
             {
-                test: /\.(png|jpg|gif)$/i,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: { limit: 8192 },
-                    },
-                ],
-            },
-            {
-                test: /\.svg$/i,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: { encoding: 'utf8' },
-                    },
-                ],
+                test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
+                loader: 'url-loader',
+                options: {
+                    limit: 8192,
+                },
             },
         ],
     },

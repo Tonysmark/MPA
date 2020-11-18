@@ -2,11 +2,11 @@
   "name": "webpack-starter",
   "version": "0.1.0",
   "private": true,
-
   "dependencies": {
     "@loadable/component": "^5.14.1",
     "css-loader": "^5.0.0",
     "dayjs": "^1.9.6",
+    "fibers": "^5.0.0",
     "happypack": "^5.0.1",
     "postcss-loader": "^4.0.4",
     "react": "^17.0.1",
