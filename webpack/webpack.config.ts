@@ -20,7 +20,7 @@ const insertModules = (moduleName: string) => {
         new HtmlWebpackPlugin({
             filename: './' + moduleName + '.html',
             template: `${ROOT_PATH}/public/index.html`,
-            hash: false,
+            hash: true,
             chunks: [moduleName],
         }),
     );
