@@ -1,8 +1,7 @@
-import webpack, { Configuration, Entry } from 'webpack';
+import webpack, { Configuration, Entry, web } from 'webpack';
 import path from 'path';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-
 
 const ROOT_PATH = path.resolve(__dirname, '../');
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
@@ -87,7 +86,9 @@ const config: Configuration = {
         publicPath: '/',
         path: DIST_PATH,
     },
-
+    optimization: {
+        moduleIds: 'named',
+    },
     plugins: [
         ...htmlModules,
         new webpack.HotModuleReplacementPlugin(),

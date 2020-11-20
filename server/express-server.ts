@@ -9,7 +9,8 @@ const app = express();
 const compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, { publicPath: config.output ? (config.output.publicPath as string) : '/' }));
 app.use(webpackHotMiddleware(compiler));
-
+app.use(express.static(path.join(__dirname, '../dist')));
+// 如果满足 MPA 模式，路由上就得满足某一正则
 app.get('/:moduleName?/*', (req, res, next) => {
     // NOTE: 代表着没有根路由，必须得存在至少两个参数的路由地址 Module/IndexPage 这样
     let moduleName = req.params['moduleName'];
@@ -18,7 +19,8 @@ app.get('/:moduleName?/*', (req, res, next) => {
     } else {
         moduleName = req.params['0'];
     }
-    console.info('请求模块: ' + moduleName);
+    moduleName.indexOf('.ico') > -1 && res.send('');
+    console.info('请求模块: ', moduleName);
     console.log('路由参数: ', req.params);
     console.log('路由查询: ', req.query);
     const filePath = path.join(`${compiler.outputPath}/${moduleName}.html`);
@@ -31,7 +33,6 @@ app.get('/:moduleName?/*', (req, res, next) => {
         res.end();
     });
 });
-
 app.listen(3000, () => {
     console.log('App start @port:3000');
 });
