@@ -49,6 +49,6 @@
   },
   "scripts": {
     "webpack": "webpack --config ./webpack/webpack.config.ts",
-    "serve": "set NODE_ENV=development && set BUILD_MODULES=ModuleA && ts-node ./server/express-server.ts",
+    "serve": "set NODE_ENV=development && set BUILD_MODULES=ModuleA && ts-node ./server/express-server.ts"
   }
 }
