@@ -45,7 +45,7 @@ const config: Configuration = {
                 exclude: [NODE_MODULES],
             },
             {
-                test: /\.((c|sa|sc)ss)$/i,
+                test: /\.((sa|sc)ss)$/i,
                 // https://webpack.docschina.org/loaders/css-loader/#compiletype
                 use: [
                     {
@@ -72,7 +72,7 @@ const config: Configuration = {
                 ],
             },
             {
-                test: /\.((c|le)ss)$/i,
+                test: /\.less$/i,
                 // https://webpack.docschina.org/loaders/css-loader/#compiletype
                 use: [
                     {

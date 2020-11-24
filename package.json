@@ -14,8 +14,10 @@
     "less-loader": "^7.1.0",
     "postcss-loader": "^4.0.4",
     "react": "^17.0.1",
+    "react-app-rewired": "^2.1.6",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.1",
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
@@ -24,7 +26,7 @@
     "ts-loader": "^8.0.5",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3",
-    "webpack": "^5.4.0"
+    "webpack": "^4.44.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -53,6 +55,7 @@
   },
   "scripts": {
     "webpack": "webpack --config ./webpack/webpack.config.ts",
-    "serve": "set NODE_ENV=development && set BUILD_MODULES=ModuleA && ts-node ./server/express-server.ts"
+    "serve": "set NODE_ENV=development && set BUILD_MODULES=ModuleA && ts-node ./server/express-server.ts",
+    "start":"react-app-rewired start"
   }
 }

@@ -8,10 +8,10 @@ export const Routes: ModuleRoute[] = [
     {
         path: 'pageA',
         // 大的 Page 或者说一个Module,可以用 loadable 做代码分割， 这部分路由下的代码按需加载
-        loadChildren: loadable(() => import('./Pages/pageA')),
+        loadChildren: loadable(() => import('./pages/pageA')),
     },
     {
         path: 'pageB',
-        loadChildren: loadable(() => import('./Pages/pageB')),
+        loadChildren: loadable(() => import('./pages/pageB')),
     },
 ];
