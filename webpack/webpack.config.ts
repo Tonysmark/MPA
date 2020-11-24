@@ -72,6 +72,26 @@ const config: Configuration = {
                 ],
             },
             {
+                test: /\.((c|le)ss)$/i,
+                // https://webpack.docschina.org/loaders/css-loader/#compiletype
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            // 对于满足 `/\.module\.\w+$/i` 正则匹配发热文件自动启用 css 模块。
+                            modules: { auto: true, localIdentName: '[name]--[local]--[hash:base64:8]' },
+                        },
+                    },
+                    {
+                        loader: 'less-loader',
+                    },
+                ],
+            },
+            {
                 test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
                 loader: 'url-loader',
                 options: {

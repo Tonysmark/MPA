@@ -2,9 +2,9 @@ import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { Routes } from './router';
-import '../theme/index.scss';
+import '../Styles/scss/index.scss';
+import '../Styles/less/index.less';
 
-// TODO 如果牵扯到 复杂路由嵌套怎么办？？？
 
 const Root = () => {
     return (
