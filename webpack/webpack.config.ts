@@ -1,4 +1,4 @@
-import webpack, { Configuration, Entry, web } from 'webpack';
+import webpack, { Configuration, Entry } from 'webpack';
 import path from 'path';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';

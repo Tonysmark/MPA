@@ -18,7 +18,9 @@
     "skipLibCheck": true, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
     "importsNotUsedAsValues": "preserve",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "checkJs": true
   },
   "exclude": [
     "node_modules",
@@ -27,7 +29,7 @@
   "include": [
     "server",
     "webpack",
-    "src/**/*", 
+    "src/**/*",
     "types",
   ]
 }
